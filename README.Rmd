@@ -1,0 +1,173 @@
+---
+output: github_document
+always_allow_html: yes
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# mustangnews
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The purpose of the mustangnews package is to assist The Hill,
+the data journalism team at Mustang News (Cal Poly’s newspaper), in data
+collection and visualization.
+
+## Installation
+
+You can install the released version of mustangnews from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("mustangnews")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("srhen/mustangnews")
+```
+
+This package contains two types of functions, those that collect/process data and those that visualize data
+
+### Data Visualization Functions
+
+While the ggplot2 and leaflet packages are excellent for making graphs and maps, it's syntax can be a bit confusing for R beginners. These functions simplify the syntax so graphs can be made quickly and easily. For more information and to see how the data should be formatted, use the `?simple_bar()` or `?simple_line()` functions.
+
+#### Bar graphs
+
+To make a basic bar graph, use the function `simple_bar()`
+```{r, warning = FALSE}
+library(mustangnews)
+simple_bar(ad_spending_overall,
+           title = "Spending on Ads during Presidential Elections")
+```
+
+We can add in more variables to our data set to add more information to our graph. A third variable uses color to denote the groups, and a fourth creates side by side plots
+
+```{r, warning = FALSE}
+simple_bar(ad_spending_total, title = "Spending on Ads during Presidential Elections")
+simple_bar(ad_support_oppose, title = "Spending on Ads during Presidential Elections")
+```
+
+You can also change settings so the bars are stacked on top of each other for a more condensed graph and even scale by percentage.
+
+```{r}
+simple_bar(ad_spending_total, title = "Spending on Ads during Presidential Elections", stacked = TRUE)
+names(ad_spending_total)[2] <- "Percentage of Ad Spending"
+ad_spending <- simple_bar(ad_spending_total, title = "Spending on Ads during Presidential Elections", percent = TRUE)
+ad_spending
+```
+
+You might have noticed that the default colors chosen are less than ideal. Two color palettes are included in this package, one with Mustang News colors and one with Cal Poly colors. You can see the colors in the two palettes by using the `see_colors()` function
+
+```{r}
+see_colors("mn")
+see_colors("cp")
+```
+
+The colors for the Democratic and Republican parties can be changed the colors we associate with them using the `set_colors()` function.
+
+```{r, message = FALSE}
+ad_spending <- ad_spending +
+  set_colors(palette = "mn", graph = "bar", navy, red)
+ad_spending
+```
+
+And finally, to get this graph web or print ready, add the corresponding theme to change the fonts and background.
+
+```{r}
+ad_spending + web_theme()
+ad_spending + print_theme()
+```
+
+#### Line graphs
+
+Line graphs can be made in a very similar manner to bar graphs. Each additional variable adds a layer of complexity to the graph.
+
+```{r}
+simple_line(cal_poly_stalking,
+            title = "Stalking Occurrences at Cal Poly: 2014-18")
+simple_line(stalking_3,
+            title = "Stalking Occurrences at Selected CA Universities")
+assault <- simple_line(sexual_assault_4,
+            title = "Sexual Assault at Occurrences Selected CA Universities")
+assault
+```
+
+A fully print ready graph could be produced by the following code
+
+```{r}
+assault <- simple_line(sexual_assault_4,
+            title = "Sexual Crimes on University Campuses",
+            caption = "Source: US Dept. of Ed.",
+            grid = T) +
+  print_theme()
+assault
+```
+
+#### Choropleths (Maps)
+
+Choropleths are maps that are shaded according to the value of a variable in that area. `state_map()` creates a choropleth of the US by state, and `county_map()` creates a choropleth of the US by county.
+
+```{r, warning = F, message = F}
+state_map(life_exp)
+county_map(median_income)
+```
+
+To map a single state by county, specify which state you would like
+```{r, warning = F, message = F}
+county_map(median_income, state = "PA")
+```
+
+If some of the counties have missing data, use the `check_county_names()` function to compare the county names in your data set to those in the function's data set for any misspelling or spacing errors. Fix these within your own data set to match what is in the functions and the counties should show up
+
+```{r, messages = F}
+check_county_names(median_income, state = "PA")
+median_income[median_income$Name == "Mc Kean County", "Name"] <- "McKean County"
+county_map(median_income, state = "PA")
+```
+
+
+### Data Collection Functions
+
+#### Police Activity Logs
+
+Police activity log data is often of interest. These logs are posted online daily. SLO PD only posts the previous day's log (or the log of Thur-Sun on Monday) while the Cal Poly UPD site has all calls for the past 60 days.
+
+To get the current logs and format them as a data frame use the `slopd_log()` and `upd_log()` functions. The `slopd_log()` can also read a txt file that was downloaded from the website and get latitude and longitude for the addresses in the file if an API code (which can be obtained [here](https://developers.google.com/maps/documentation/javascript/get-api-key)) is supplied. You can specify your starting and ending dates for the `upd_log()` file as well, just keep in mind that they need to be within the last 60 days.
+
+```{r, warning = F, message = F}
+head(slopd_log())
+head(upd_log(start = "2020-06-05", end = "2020-06-06"))
+```
+
+#### Greek Life Sanctions 
+
+It can be useful to keep an eye on the [Greek Life sanctions page](https://greeklife.calpoly.edu/chapter-sanction-information) so that you know which chapters are on probation/suspensions and can see how those have changed since the last time the page was checked. 
+
+To get the current sanctions, use the `get_gl_sanctions()` function. 
+
+```{r, warning = F, message = F}
+get_gl_sanctions()
+```
+
+If you would like to save this file to your current working directory, you can do that as well by specifying `get_gl_sanctions(save = TRUE)`
+
+The `comp_gl_sanctions()` will compare the current sanctions to an old sanction file that you have saved, such as this one from April 25, 2020, or can compare two old sanction files as well. Anything in red denotes information that was in the old file that has since been removed and anything in green has been added to the site since your old file was obtained. 
+
+```{r, warning = F, message = F}
+comp_gl_sanctions(old_sanctions)
+```
+
+
+

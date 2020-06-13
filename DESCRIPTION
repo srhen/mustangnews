@@ -1,19 +1,35 @@
 Package: mustangnews
-Title: What the Package Does (One Line, Title Case)
+Title: Support for Mustang News Data Team 
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Sadie",
+           family = "Rhen",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "sadierhen@gmail.com")
+Description: The purpose of the mustangnews package is to assist The Hill, 
+  the data journalism team at Mustang News (Cal Poly’s newspaper), in data 
+  collection and visualization. The data collection side contains functions 
+  that scrape the websites of the San Luis Obispo PD and Cal Poly University 
+  Police Departments and reformats the police activity/call logs into usable 
+  data frames. In addition there are functions that scrape other Cal Poly
+  websites, such as the Greek Life Chapter Sanction page, and can compare 
+  them to old versions of the page so that the team can stay up to date. 
+  Many of the members of The Hill do not have experience with R, so the 
+  goal of the visualization functions is to simplify the process for them. 
+  In addition to a custom theme in the style of the Mustang News website, 
+  this package includes functions that simplify the creation of  bar graphs 
+  and line charts. In hopes to support online stories as well as to print ones,
+  this package also includes functions that can easily create interactive
+  choropleths (colored maps) at both the state and county level.
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Suggests: 
-    testthat
+    testthat, knitr, rmarkdown
 Imports: 
-    magrittr
+    magrittr, car, compareDF, dplyr, ggmap, ggplot2, janitor,
+    leaflet, openintro, paletti, rvest, sp, stringr,
+    tibble, tidyr, xml2, geojsonio
+VignetteBuilder: knitr
