@@ -3,3 +3,7 @@
 ^doc$
 ^Meta$
 ^README\.Rmd$
+^dev$
+^LICENSE\.md$
+^cran-comments\.md$
+^\.travis\.yml$

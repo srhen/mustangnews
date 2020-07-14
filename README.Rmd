@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # mustangnews
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.com/kbodwin/mustangnews.svg?branch=master)](https://travis-ci.com/kbodwin/mustangnews)
 <!-- badges: end -->
 
 The purpose of the mustangnews package is to assist The Hill,
@@ -24,11 +25,12 @@ collection and visualization.
 
 ## Installation
 
-You can install the released version of mustangnews from [CRAN](https://CRAN.R-project.org) with:
+<!-- You can install the released version of mustangnews from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("mustangnews")
 ```
+-->
 
 And the development version from [GitHub](https://github.com/) with:
 

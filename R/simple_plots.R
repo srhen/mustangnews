@@ -52,12 +52,11 @@ print_theme <- function(){
 #' Mustang News palette
 #' @param graph A string indicating which type of graph you made.
 #' Options are "line" or "bar"
-#' @param ... The colors that you want to use, unquoted, seperated
+#' @param ... The colors that you want to use, unquoted, separated
 #' by commas. There should be one color for each group in variable you
-#' want to color by
+#' want to color by.
 #'
-#' @import paletti
-#' @importFrom ggplot2 scale_color_manual scale_fill_manual
+#' @import ggplot2
 #'
 #' @export
 set_colors <- function(palette, graph, ...){
@@ -95,7 +94,7 @@ set_colors <- function(palette, graph, ...){
       seal_gray = "#54585A"
     )
   }
-  cols_hex <- get_hex(cols)
+  cols_hex <- paletti::get_hex(cols)
 
   if(graph == "line"){
     scale_color_manual(values = cols_hex(...))
@@ -115,8 +114,6 @@ set_colors <- function(palette, graph, ...){
 #'
 #' @source \url{https://universitymarketing.calpoly.edu/brand-guidelines/colors/}
 #'
-#' @import paletti
-#'
 #' @export
 see_colors <- function(palette){
   if(palette != "mn" & palette != "cp"){
@@ -135,7 +132,7 @@ see_colors <- function(palette){
       black = "#2c2d2c",
       cream = "#f5f1c2"
     )
-    pal <- viz_palette(mn_cols, ttl = "Mustang News Color Palette
+    pal <- paletti::viz_palette(mn_cols, ttl = "Mustang News Color Palette
   teal, navy, light_blue, orange, yellow, light_green, red, black, cream
   ")
   }
@@ -152,7 +149,7 @@ see_colors <- function(palette){
       sycamore = "#789F90",
       seal_gray = "#54585A"
     )
-    pal <- viz_palette(cp_cols, ttl = "Cal Poly Color Palette
+    pal <- paletti::viz_palette(cp_cols, ttl = "Cal Poly Color Palette
   cp_green, cp_gold, poly_canyon, farmers_market, surf_blue, morro_blue, pismo_sand, sycamore, seal_gray
   ")
   }

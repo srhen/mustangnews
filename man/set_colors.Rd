@@ -14,9 +14,9 @@ Mustang News palette}
 \item{graph}{A string indicating which type of graph you made.
 Options are "line" or "bar"}
 
-\item{...}{The colors that you want to use, unquoted, seperated
+\item{...}{The colors that you want to use, unquoted, separated
 by commas. There should be one color for each group in variable you
-want to color by}
+want to color by.}
 }
 \description{
 Add this function on to an existing line or bar graph

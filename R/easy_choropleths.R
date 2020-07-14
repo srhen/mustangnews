@@ -5,7 +5,7 @@
 #'
 #' @return An interactive map, which is a HTML widget object
 #'
-#' @importFrom openintro abbr2state
+#' @importFrom usdata abbr2state
 #' @importFrom dplyr mutate arrange
 #' @import sp leaflet
 #'
@@ -62,7 +62,7 @@ state_map <- function(data){
 #' @return An interactive map, which is a HTML widget object
 #'
 #' @import sp leaflet dplyr
-#' @importFrom openintro abbr2state
+#' @importFrom usdata abbr2state
 #'
 #' @export
 #'
@@ -179,7 +179,7 @@ county_map <- function(data, state = "all"){
 #' in your data set to match those in the function if you'd like to graph those
 #' counties
 #'
-#' @importFrom openintro abbr2state
+#' @importFrom usdata abbr2state
 #' @importFrom dplyr mutate arrange filter select
 #'
 #' @export

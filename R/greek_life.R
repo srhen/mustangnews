@@ -53,7 +53,7 @@ get_gl_sanctions <- function(save = FALSE){
 
   if(save){
     day <- format(Sys.Date(), "%m%d%y")
-    write.csv(site_info, paste0("cpgl_sanctions_", day, ".csv"))
+    utils::write.csv(site_info, paste0("cpgl_sanctions_", day, ".csv"))
   }
 
   return(site_info)
